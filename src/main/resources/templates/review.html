@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>트리플 과제 페이지</title>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
+</head>
+<body>
+<button id="addBtn">리뷰작성</button>
+<button id="modBtn">리뷰수정</button>
+<button id="deleteBtn">리뷰삭제</button>
+<button id="selectBtn">포인트조회</button>
+<button id="recordBtn">포인트이력조회</button>
+<table id="pointRecord" style="display: none">
+    <thead>
+    <tr>
+        <td>적립일</td>
+        <td>내역</td>
+        <td>포인트</td>
+    </tr>
+    </thead>
+    <tbody id="pointTbody">
+
+    </tbody>
+</table>
+<div>
+    <span id="result" style="display: none"></span>
+</div>
+</body>
+<script>
+    $('#addBtn').click(function () {
+        $.ajax({
+            url: "/events",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({
+                type: "REVIEW",
+                action: "ADD",
+                reviewId: "240a0658-dc5f-4878-9381-ebb7b2667772",
+                content: "좋아요!",
+                attachedPhotoIds: ["e4d1a64e-a531-46de-88d0-ff0ed70c0bb8", "afb0cef2-851d-4a50-bb07-9cc15cbdc332"],
+                userId: "3ede0ef2-92b7-4817-a5f3-0c575361f745",
+                placeId: "2e4baf1c-5acb-4efb-a1af-eddada31b00f"
+            }),
+            success: function (data) {
+                document.getElementById("result").innerHTML = data;
+            }
+        })
+        $('#pointRecord').hide()
+        $('#result').show()
+    })
+
+    $('#modBtn').click(function () {
+        $.ajax({
+            url: "/events",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({
+                type: "REVIEW",
+                action: "MOD",
+                reviewId: "240a0658-dc5f-4878-9381-ebb7b2667772",
+                content: "수정해요!",
+                attachedPhotoIds: [],
+                userId: "3ede0ef2-92b7-4817-a5f3-0c575361f745",
+                placeId: "2e4baf1c-5acb-4efb-a1af-eddada31b00f"
+            }),
+            success: function (data) {
+                document.getElementById("result").innerHTML = data;
+            }
+        })
+        $('#pointRecord').hide()
+        $('#result').show()
+    })
+
+    $('#deleteBtn').click(function () {
+        $.ajax({
+            url: "/events",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({
+                type: "REVIEW",
+                action: "DELETE",
+                reviewId: "240a0658-dc5f-4878-9381-ebb7b2667772",
+                userId: "3ede0ef2-92b7-4817-a5f3-0c575361f745",
+                placeId: "2e4baf1c-5acb-4efb-a1af-eddada31b00f"
+            }),
+            success: function (data) {
+                document.getElementById("result").innerHTML = data;
+            }
+        })
+        $('#pointRecord').hide()
+        $('#result').show()
+    })
+
+    $('#selectBtn').click(function () {
+        $.ajax({
+            url: "/userPoint",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({
+                userId: "3ede0ef2-92b7-4817-a5f3-0c575361f745"
+            }),
+            success: function (data) {
+                document.getElementById("result").innerHTML = data;
+            }
+        })
+        $('#pointRecord').hide()
+        $('#result').show()
+    })
+
+    $('#recordBtn').click(function () {
+        $('#pointTbody').empty()
+        $.ajax({
+            url: "/pointRecord",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({
+                userId: "3ede0ef2-92b7-4817-a5f3-0c575361f745"
+            }),
+            success: function (data) {
+                data.forEach(function (record) {
+                    let tbody = document.getElementById("pointTbody")
+                    let tr = document.createElement('tr')
+                    let td1 = document.createElement('td')
+                    let td2 = document.createElement('td')
+                    let td3 = document.createElement('td')
+                    td1.innerHTML = record.date
+                    td2.innerHTML = record.info
+                    td3.innerHTML = record.point
+                    tr.appendChild(td1)
+                    tr.appendChild(td2)
+                    tr.appendChild(td3)
+                    tbody.appendChild(tr)
+                })
+            }
+        })
+        $('#result').hide()
+        $('#pointRecord').show()
+    })
+</script>
+</html>
