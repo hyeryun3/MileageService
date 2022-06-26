@@ -58,7 +58,7 @@ public class PointServiceTest {
     }
 
     @Test
-    public void pointRecord() {
+    public void pointRecord() { // 수정해야함.
         // given
         User user = new User(userUuid);
         user = userRepository.save(user);
