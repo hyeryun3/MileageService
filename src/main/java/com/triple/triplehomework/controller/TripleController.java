@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Slf4j
 @Controller
@@ -105,9 +104,9 @@ public class TripleController {
                     Photo photo = new Photo(attached, review);
                     photoRepository.save(photo);
                 }
-            res= "리뷰가 작성되었습니다.";
-            }else{
-                res= "한 장소에 리뷰는 한개만 가능합니다.";
+                res = "리뷰가 작성되었습니다.";
+            } else {
+                res = "한 장소에 리뷰는 한개만 가능합니다.";
             }
 
         } else if (reviewDTO.getAction().equals("MOD")) { // 리뷰 수정
@@ -152,9 +151,9 @@ public class TripleController {
                 review = new Review(review.getReviewId(), reviewDTO.getContent(), reviewDTO.getReviewId(), user, place, review.isFirstReview());
                 reviewRepository.save(review);
 
-                res= "리뷰가 수정되었습니다.";
-            }else{
-                res= "수정할 리뷰가 존재하지 않습니다.";
+                res = "리뷰가 수정되었습니다.";
+            } else {
+                res = "수정할 리뷰가 존재하지 않습니다.";
             }
 
         } else if (reviewDTO.getAction().equals("DELETE")) {  // 리뷰 삭제
@@ -183,9 +182,9 @@ public class TripleController {
                 // 리뷰 DB 삭제
                 reviewRepository.delete(review);
 
-                res= "리뷰가 삭제되었습니다.";
-            }else{
-                res= "삭제할 리뷰가 존재하지 않습니다.";
+                res = "리뷰가 삭제되었습니다.";
+            } else {
+                res = "삭제할 리뷰가 존재하지 않습니다.";
             }
         }
 

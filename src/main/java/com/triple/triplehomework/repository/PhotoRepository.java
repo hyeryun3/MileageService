@@ -1,7 +1,6 @@
 package com.triple.triplehomework.repository;
 
 import com.triple.triplehomework.domain.Photo;
-import com.triple.triplehomework.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

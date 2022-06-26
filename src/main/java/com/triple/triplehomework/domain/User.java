@@ -1,6 +1,5 @@
 package com.triple.triplehomework.domain;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 
 import javax.persistence.*;
