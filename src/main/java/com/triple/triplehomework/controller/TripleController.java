@@ -7,10 +7,7 @@ import com.triple.triplehomework.repository.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -199,9 +196,8 @@ public class TripleController {
 
     // 포인트 조회
     @ResponseBody
-    @PostMapping("/userPoint")
-    public String userPoint(@RequestBody Map<String, String> data) {
-        String userUuid = data.get("userId");
+    @GetMapping("/userPoint/{userId}")
+    public String userPoint(@PathVariable("userId") String userUuid) {
         User user = userRepository.findByUserUuid(userUuid);
         if (user != null) {
             int userPoint = user.getPoint();
@@ -213,9 +209,8 @@ public class TripleController {
 
     // 포인트 이력
     @ResponseBody
-    @PostMapping("/pointRecord")
-    public List<PointDTO> pointRecord(@RequestBody Map<String, String> data) {
-        String userUuid = data.get("userId");
+    @GetMapping("/pointRecord/{userId}")
+    public List<PointDTO> pointRecord(@PathVariable("userId") String userUuid) {
         User user = userRepository.findByUserUuid(userUuid);
 
         if (user == null) {

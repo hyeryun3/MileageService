@@ -9,7 +9,7 @@
 <button id="addBtn">리뷰작성</button>
 <button id="modBtn">리뷰수정</button>
 <button id="deleteBtn">리뷰삭제</button>
-<button id="selectBtn">포인트조회</button>
+<button id="selectBtn">사용자포인트조회</button>
 <button id="recordBtn">포인트이력조회</button>
 <table id="pointRecord" style="display: none">
     <thead>
@@ -92,14 +92,12 @@
         $('#result').show()
     })
 
+    let userId = "3ede0ef2-92b7-4817-a5f3-0c575361f745"
+
     $('#selectBtn').click(function () {
         $.ajax({
-            url: "/userPoint",
-            type: "POST",
-            contentType: "application/json",
-            data: JSON.stringify({
-                userId: "3ede0ef2-92b7-4817-a5f3-0c575361f745"
-            }),
+            url: "/userPoint/"+userId,
+            type: "GET",
             success: function (data) {
                 document.getElementById("result").innerHTML = data;
             }
@@ -111,12 +109,8 @@
     $('#recordBtn').click(function () {
         $('#pointTbody').empty()
         $.ajax({
-            url: "/pointRecord",
-            type: "POST",
-            contentType: "application/json",
-            data: JSON.stringify({
-                userId: "3ede0ef2-92b7-4817-a5f3-0c575361f745"
-            }),
+            url: "/pointRecord/"+userId,
+            type: "GET",
             success: function (data) {
                 data.forEach(function (record) {
                     let tbody = document.getElementById("pointTbody")
