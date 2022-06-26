@@ -105,8 +105,10 @@ public class TripleController {
                     Photo photo = new Photo(attached, review);
                     photoRepository.save(photo);
                 }
-            }
             res= "리뷰가 작성되었습니다.";
+            }else{
+                res= "한 장소에 리뷰는 한개만 가능합니다.";
+            }
 
         } else if (reviewDTO.getAction().equals("MOD")) { // 리뷰 수정
             // 작성된 리뷰 찾기
