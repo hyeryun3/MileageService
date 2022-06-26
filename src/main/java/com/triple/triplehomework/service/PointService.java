@@ -17,13 +17,13 @@ public class PointService {
     private final PointRepository pointRepository;
     private final UserRepository userRepository;
 
-    public String userPoint(String userUuid){
+    public int userPoint(String userUuid){
         User user = userRepository.findByUserUuid(userUuid);
         if (user != null) {
             int userPoint = user.getPoint();
-            return "사용자의 현재 포인트 : " + userPoint;
+            return userPoint;
         } else {
-            return "존재하지 않는 사용자입니다.";
+            return -1;
         }
     }
 
