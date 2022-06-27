@@ -1,9 +1,10 @@
 # 클럽 마일리지 서비스
 
 ### [요구 사항]
-- SQL  설계
-- 포인트 적립 API 작성
-- 포인트 조회 API 작성
+- [x] SQL  설계
+- [x] 포인트 적립 API 작성
+- [x] 포인트 조회 API 작성
+- [x] 테스트 코드 작성 
 
 ### [개발 환경]
 - Java11
@@ -42,16 +43,52 @@ data : 적립일 <br/>
 
 
 ### [상황]
-- 리뷰작성 시, 포인트 증가 <br/>
-리뷰작성 버튼 -> 사용자포인트조회 버튼 및 포인트이력조회 버튼 클릭 <br/>
-- 리뷰수정 시, 포인트 증가 or 감소 <br/>
-리뷰수정 버튼 -> 사용자포인트조회 버튼 및 포인트이력조회 버튼 클릭 <br/>
-- 리뷰삭제 시, 포인트 감소 <br/>
-리뷰삭제 버튼 -> 사용자포인트조회 버튼 및 포인트이력조회 버튼 클릭 <br/>
+- 리뷰작성 시, 포인트 증가
+  - 사진 추가 시 +1
+  - 해당 장소의 첫 리뷰 시 +1
+- 리뷰수정 시, 포인트 증가 or 감소
+  - 사진 없는 리뷰에서 사진 추가 시 +1
+  - 사진 있는 리뷰에서 사진 삭제 시 -1
+- 리뷰삭제 시, 포인트 감소
+  - 해당 리뷰로 부여된 포인트 회수
 
-### [실행]
+
+### [API]
+|Method|URI|Description| 
+|:---|:---|:---| 
+|POST|/events|리뷰이벤트(작성/수정/삭제)| 
+|GET|/userPoint/{userId}|유저 포인트 조회| 
+|GET|/pointRecord/{userId}|유저 포인트 적립 기록 조회| 
+
+
+### [API 테스트 방법]
+- POST /events
+```
+{
+"type": "REVIEW",
+"action": "ADD", /* "MOD", "DELETE" */
+"reviewId": "240a0658-dc5f-4878-9381-ebb7b2667772",
+"content": "좋아요!",
+"attachedPhotoIds": ["e4d1a64e-a531-46de-88d0-ff0ed70c0bb8", "afb0cef2-
+851d-4a50-bb07-9cc15cbdc332"],
+"userId": "3ede0ef2-92b7-4817-a5f3-0c575361f745",
+"placeId": "2e4baf1c-5acb-4efb-a1af-eddada31b00f"
+}
+```
+1. 코드 실행
+2. http://localhost:8080 ( 위의 데이터로 임시 userId & placeId 생성 )
+3. POST /events 로 위의 데이터 전송
+4. /userPoint/{userId}를 통해 유저 포인트 조회
+5. /pointRecord/{userId}를 통해 유저 포인트 적립 기록 조회
+
+
+### [코드 실행]
 - application.properties 에서 url,username,password 수정.
 - 작성된 DDL 사용 혹은 ddl-auto=create로 변경 후 실행.
   - resources\static\DDL.sql 에서 DDL 확인 가능.
 - review.html 에서 전송데이터 수정 가능.
 - http://localhost:8080 에서 버튼클릭을 통해 결과를 확인할 수 있음.
+  - 리뷰작성 버튼 -> 사용자포인트조회 버튼 및 포인트이력조회 버튼 클릭 <br/>
+  - 리뷰수정 버튼 -> 사용자포인트조회 버튼 및 포인트이력조회 버튼 클릭 <br/>
+  - 리뷰삭제 버튼 -> 사용자포인트조회 버튼 및 포인트이력조회 버튼 클릭 <br/>
+  
