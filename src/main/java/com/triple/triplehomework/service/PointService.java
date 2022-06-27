@@ -1,5 +1,6 @@
 package com.triple.triplehomework.service;
 
+import com.triple.triplehomework.domain.Place;
 import com.triple.triplehomework.domain.Point;
 import com.triple.triplehomework.domain.User;
 import com.triple.triplehomework.dto.PointDTO;
@@ -16,6 +17,24 @@ import java.util.List;
 public class PointService {
     private final PointRepository pointRepository;
     private final UserRepository userRepository;
+
+    final int plus = 1;
+    final int minus = -1;
+
+    public Point plusPoint(String info, User user, Place place){
+        Point point = new Point(info, plus, user, place);
+        return pointRepository.save(point);
+    }
+
+    public Point minusPoint(String info, User user, Place place){
+        Point point = new Point(info, minus, user, place);
+        return pointRepository.save(point);
+    }
+
+    public void updatePoint(User user) {
+        int userPoint = pointRepository.getSumOfPoint(user.getUserId());
+        userRepository.updatePoint(user.getUserId(), userPoint);
+    }
 
     public int userPoint(String userUuid){
         User user = userRepository.findByUserUuid(userUuid);
@@ -46,5 +65,4 @@ public class PointService {
         }
         return pointList;
     }
-
 }

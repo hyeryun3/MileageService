@@ -50,7 +50,7 @@ public class TripleController {
     // 리뷰 이벤트
     @ResponseBody
     @PostMapping("events")
-    public String reviewEvt(@RequestBody ReviewDTO reviewDTO) {
+    public String reviewEvt(@RequestBody ReviewDTO reviewDTO){
         switch (reviewDTO.getAction()) {
             case "ADD":
                 return reviewService.addReview(reviewDTO);
@@ -66,7 +66,12 @@ public class TripleController {
     @ResponseBody
     @GetMapping("/userPoint/{userId}")
     public String userPoint(@PathVariable("userId") String userUuid) {
-        return pointService.userPoint(userUuid);
+        int userPoint = pointService.userPoint(userUuid);
+        if(userPoint==-1){
+            return "존재하지 않는 사용자입니다.";
+        }else{
+            return "사용자의 현재 포인트 : " + userPoint;
+        }
     }
 
     // 포인트 이력
