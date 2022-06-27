@@ -18,11 +18,8 @@ public class ReviewService {
     private final PlaceRepository placeRepository;
     private final ReviewRepository reviewRepository;
     private final PhotoRepository photoRepository;
+
     private final PointService pointService;
-
-    static Place place;
-    static User user;
-
 
     // 리뷰 작성
     public String addReview(ReviewDTO reviewDTO){
@@ -31,8 +28,8 @@ public class ReviewService {
         String info = "";
 
         // 해당 장소에 사용자가 작성한 리뷰가 있는지 확인
-        user = userRepository.findByUserUuid(reviewDTO.getUserId());
-        place = placeRepository.findByPlaceUuid(reviewDTO.getPlaceId());
+        User user = userRepository.findByUserUuid(reviewDTO.getUserId());
+        Place place = placeRepository.findByPlaceUuid(reviewDTO.getPlaceId());
         Review reviewCheck = reviewRepository.findByUser_UserIdAndPlace_PlaceId(user.getUserId(), place.getPlaceId());
 
         // 해당 장소에 사용자가 작성한 리뷰가 없다면 진행
@@ -90,8 +87,8 @@ public class ReviewService {
         String res = "";
         String info = "";
 
-        user = userRepository.findByUserUuid(reviewDTO.getUserId());
-        place = placeRepository.findByPlaceUuid(reviewDTO.getPlaceId());
+        User user = userRepository.findByUserUuid(reviewDTO.getUserId());
+        Place place = placeRepository.findByPlaceUuid(reviewDTO.getPlaceId());
 
         // 작성된 리뷰 찾기
         Review review = reviewRepository.findByReviewUuid(reviewDTO.getReviewId());
@@ -149,8 +146,8 @@ public class ReviewService {
         String res = "";
         String info = "";
 
-        user = userRepository.findByUserUuid(reviewDTO.getUserId());
-        place = placeRepository.findByPlaceUuid(reviewDTO.getPlaceId());
+        User user = userRepository.findByUserUuid(reviewDTO.getUserId());
+        Place place = placeRepository.findByPlaceUuid(reviewDTO.getPlaceId());
 
         // 작성된 리뷰 찾기
         Review review = reviewRepository.findByReviewUuid(reviewDTO.getReviewId());
