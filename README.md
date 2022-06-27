@@ -50,6 +50,7 @@ data : 적립일 <br/>
 리뷰삭제 버튼 -> 사용자포인트조회 버튼 및 포인트이력조회 버튼 클릭 <br/>
 
 ### [실행]
+- 작성된 테스트코드로 테스트 가능.
 - application.properties 에서 url,username,password 수정.
 - 작성된 DDL 사용 혹은 ddl-auto=create로 변경 후 실행.
   - resources\static\DDL.sql 에서 DDL 확인 가능.
