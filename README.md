@@ -80,15 +80,3 @@ data : 적립일 <br/>
 3. POST /events 로 위의 데이터 전송
 4. /userPoint/{userId}를 통해 유저 포인트 조회
 5. /pointRecord/{userId}를 통해 유저 포인트 적립 기록 조회
-
-
-### [코드 실행]
-- application.properties 에서 url,username,password 수정.
-- 작성된 DDL 사용 혹은 ddl-auto=create로 변경 후 실행.
-  - resources\static\DDL.sql 에서 DDL 확인 가능.
-- review.html 에서 전송데이터 수정 가능.
-- http://localhost:8080 에서 버튼클릭을 통해 결과를 확인할 수 있음.
-  - 리뷰작성 버튼 -> 사용자포인트조회 버튼 및 포인트이력조회 버튼 클릭 <br/>
-  - 리뷰수정 버튼 -> 사용자포인트조회 버튼 및 포인트이력조회 버튼 클릭 <br/>
-  - 리뷰삭제 버튼 -> 사용자포인트조회 버튼 및 포인트이력조회 버튼 클릭 <br/>
-  
